@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import {
   SafeAreaView,
   Text,
@@ -6,11 +6,12 @@ import {
   FlatList,
   TouchableOpacity,
 } from 'react-native';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
 import * as booksAction from '../../redux/action/books';
 import styles from './styles';
-import { Loader } from '../../component';
+import {Loader} from '../../component';
+import {strings} from '../../../locales/i18n';
 
 class Books extends Component {
   constructor(props) {
@@ -33,33 +34,33 @@ class Books extends Component {
     return null;
   }
   componentDidMount() {
-    const { getAllBooks } = this.props;
+    const {getAllBooks} = this.props;
     getAllBooks();
   }
   render() {
-    const { books } = this.state;
-    const { apiCalling } = this.props;
+    const {books} = this.state;
+    const {apiCalling} = this.props;
     return (
-      <SafeAreaView style={{ flex: 1 }}>
+      <SafeAreaView style={{flex: 1}}>
         {/* Header View */}
 
         <View style={styles.headerView}>
           <View style={styles.headingTitleContainer}>
-            <Text style={styles.headingText}>Title</Text>
+            <Text style={styles.headingText}>{strings('title')}</Text>
           </View>
           <View style={styles.headingTitleContainer}>
-            <Text style={styles.headingText}>Author</Text>
+            <Text style={styles.headingText}>{strings('author')}</Text>
           </View>
 
           {/* For very left space */}
 
-          <View style={{ flex: 1 }} />
+          <View style={{flex: 1}} />
         </View>
 
         {/*  List of books  */}
         <FlatList
           data={books}
-          renderItem={({ item }) => (
+          renderItem={({item}) => (
             <TouchableOpacity
               onPress={() =>
                 this.props.navigation.navigate('DetailsOfBooks', {
@@ -68,14 +69,14 @@ class Books extends Component {
                   author: item.volumeInfo.authors,
                 })
               }>
-              <View style={[styles.headerView, { padding: 5 }]}>
-                <View style={{ flex: 3 }}>
+              <View style={[styles.headerView, {padding: 5}]}>
+                <View style={{flex: 3}}>
                   <Text style={styles.text}>{item.volumeInfo.title}</Text>
                 </View>
-                <View style={{ flex: 2 }}>
+                <View style={{flex: 2}}>
                   <Text style={styles.text}>{item.volumeInfo.authors}</Text>
                 </View>
-                <View style={{ flex: 1 }}>
+                <View style={{flex: 1}}>
                   <Text style={styles.navButton}>></Text>
                 </View>
               </View>
